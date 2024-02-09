@@ -1,0 +1,27 @@
+ <p-card header="{{product.title}}" subheader="Precio: {{product.price | currency:'$'}}" [style]="{ width: '360px' }" class="p-1">
+     <ng-template pTemplate="header">
+
+         <p-image
+             [src]="product.images"
+             [alt]="product.title"
+             onerror="this.src='assets/images/imageDefault.png'"
+             [preview]="true"
+             class="h-full w-full object-cover object-center group-hover:opacity-75">
+         </p-image>
+
+     </ng-template>
+     <p class = "text-sm">
+         {{product.description}}
+     </p>
+     <ng-template pTemplate="footer" class="w-full">
+         <p-button
+             (onClick)="callChesenProduct()"
+             size="small"
+             type = 'submit'
+             label="Add to cart"
+             icon="pi pi-shopping-cart"
+             class="w-full"
+             [outlined]="true">
+         </p-button>
+     </ng-template>
+ </p-card>

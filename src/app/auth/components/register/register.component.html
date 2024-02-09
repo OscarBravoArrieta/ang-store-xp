@@ -1,0 +1,96 @@
+ <div class="card p-fluid">
+    <form [formGroup]="form" (ngSubmit)="register()">
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="email">Email</label>
+                <input formControlName="email" class="p-inputtext-sm" pInputText id="email" type="text" />
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('email')?.errors?.required && statusForm()" >
+                     Correo electrónico es requerido
+                </small>
+
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('email')?.errors?.email && statusForm()" >
+                     No es un email válido
+                </small>
+            </div>
+            <div class="field col">
+                <label htmlFor="name">Name</label>
+                <input formControlName="name" class="p-inputtext-sm" pInputText id="name" type="text" />
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('name')?.errors?.required && statusForm()" >
+                    Nombre es requerido
+               </small>
+
+               <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('name')?.errors?.minlength && statusForm()" >
+                    Mínimo ocho (8) caracteres
+               </small>
+            </div>
+
+        </div>
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="password">Password (Solo letras y números)</label>
+                <p-password id="password" formControlName="password" class="p-inputtext-sm">
+                    <ng-template pTemplate="header">
+                        <h6>Establece un password</h6>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <p-divider></p-divider>
+                        <p class="mt-2">Sugerencias</p>
+                        <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                            <li>Al menos una minúscula</li>
+                            <li>Al menos una mayúscula</li>
+                            <li>Al menos un número</li>
+                            <li>Mínimo 8 caracteres</li>
+                        </ul>
+                    </ng-template>
+                </p-password>
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('password')?.errors?.required && statusForm()" >
+                    Password es requerido
+                </small>
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('password')?.errors?.pattern && statusForm()" >
+                    Password poco seguro
+                </small>
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('password')?.errors?.minlength && statusForm()" >
+                    Mínimo ocho (8) caracteres
+                </small>
+            </div>
+            <div class="field col">
+                <label htmlFor="passwordConfirm">Confirmar password</label>
+                <input formControlName="passwordConfirm" class="p-inputtext-sm" pInputText id="passwordConfirm" type="password" />
+
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('passwordConfirm')?.errors?.required && statusForm()" >
+                    Confirmación password es requerida
+               </small>
+                 <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('passwordConfirm')?.errors?.NoPassswordMatch && statusForm()" >
+                     Passwords no coinciden
+                 </small>
+            </div>
+
+        </div>
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="role">Role</label>
+                <p-dropdown class="p-inputtext-sm" formControlName="role" [options]="roles" optionLabel="name" placeholder="Seleccione rol"></p-dropdown>
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('role')?.errors?.required && statusForm()" >
+                    Rol es requerido
+               </small>
+            </div>
+            <div class="field col">
+                <label htmlFor="avatar">Avatar</label>
+                <input formControlName="avatar" class="p-inputtext-sm" pInputText id="avatar" type="text" />
+                <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('avatar')?.errors?.pattern && statusForm()" >
+                    No es una URL válida
+               </small>
+            </div>
+
+
+        </div>
+        <button size="small" type = 'submit' pButton pRipple label="Crear cuenta" icon="pi pi-user-plus" class="w-full" ></button>
+    </form>
+
+ </div>
+
+
+
+
+
+

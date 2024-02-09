@@ -1,0 +1,39 @@
+ <div class = "layout-topbar">
+     <div class="flex justify-content-between flex-wrap card-container purple-container">
+         <div class = "flex align-items-center justify-content-center">
+             <a style="cursor: pointer">
+                 <p-image src="assets/logos/my-eCommerce1.png" alt="Image" width="50%" routerLink = "/">
+                     <ng-template pTemplate="indicator">
+                         Indicator Content
+                     </ng-template>
+                 </p-image>
+             </a>
+             @if(userService.userLogged()){
+                 <p-button label="Categorías" size="small" [link]="true"></p-button>
+                 <p-button label="Productos" size="small" [link]="true"></p-button>
+                 <p-button label="Usuarios" size="small" [link]="true"></p-button>
+             }
+
+         </div>
+         <div class = "flex align-items-center justify-content-center">
+             <a style="cursor: pointer">
+                 <p-button class="mr-4" icon="pi pi-shopping-cart" [rounded]="true" severity="danger">{{ total.length }}</p-button>
+             </a>
+
+             @if(userService.userLogged()){
+                 <button
+                     type="button"
+                     pButton pRipple
+                     icon="pi pi-user"
+                     (click)="menu.toggle($event)"
+                     class="p-button-rounded p-button-secondary">
+                 </button>
+                 <p-menu #menu [model]="items" [popup]="true"></p-menu>
+
+             }@else{
+                 <p-button label="Login" size="small" (click)="callLogin()" severity="info"></p-button>
+             }
+         </div>
+     </div>
+ </div>
+

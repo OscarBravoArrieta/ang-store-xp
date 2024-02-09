@@ -1,0 +1,39 @@
+ <div class="card p-fluid">
+     <p-toast></p-toast>
+     <form [formGroup]="form" (ngSubmit)="login()">
+         <div class="text-center mb-5">
+             <!-- <img src="assets/images/blocks/logos/hyper.svg" alt="Image" height="50" class="mb-3"> -->
+             <!-- <div class="text-900 text-3xl mb-3">Iniciar sesión</div> -->
+             <span class="text-600 line-height-3">¿No tiene una cuenta?</span>
+             <a class="no-underline ml-2 text-blue-500 cursor-pointer" routerLink = "auth/register" (click)="callRegister()">Créela ahora!</a>
+             <!-- <p-button class="ml-2" label="Créala ahora" [link]="true"></p-button> -->
+         </div>
+
+         <div>
+             <div class="p-float-label mt-4 mb-3">
+                 <input type="text" class="p-inputtext-sm" pInputText formControlName="email" style="width: 400px;" autofocus>
+                 <label for="email">Correo electrónico</label>
+
+                 <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('email')?.errors?.required && statusForm()" >
+                     Correo electrónico es requerido
+                 </small>
+
+                 <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('email')?.errors?.email && statusForm()" >
+                     No es un email válido
+                 </small>
+             </div>
+
+             <div class="p-float-label mt-4 mb-3">
+
+                 <input type="password" class="p-inputtext-sm" pInputText formControlName="password" style="width: 400px;">
+                 <label for="password">Password</label>
+
+                 <small class="p-error flex align-items-center message-error" [class.show] = "this.form.get('password')?.errors?.required && statusForm()" >
+                     Password es requerido
+                 </small>
+             </div>
+             <button size="small" type = 'submit' pButton pRipple label="Iniciar sesión" icon="pi pi-sign-in" class="w-full" ></button>
+         </div>
+     </form>
+ </div>
+

@@ -1,0 +1,28 @@
+ <div class="grid mt-8 card-container">
+
+     <div class="col-2">
+         <!-- <div class="text-center p-3 border-round-sm bg-primary font-bold">Categorias</div> -->
+         <ul>
+             <li>
+                 <p-button routerLink = "/dashboard/products-store/" label="All" [link]="true"></p-button>
+             </li>
+             @for (category of categories(); track category) {
+                 <li>
+                     <p-button routerLink = "/dashboard/products-store/" [queryParams]="{category_id: category.id}" label="{{ category.name }}" [link]="true"></p-button>
+                 </li>
+             }
+         </ul>
+     </div>
+     <div class="col-10 border-round scroll">
+         <!-- <div class="text-center p-3 border-round-sm bg-primary font-bold p-3">Products</div> -->
+         <div class="flex justify-content-between flex-wrap card-container purple-container m-3">
+             @for (product of products(); track product) {
+                 <app-product-details
+                     [product] = "product"
+                     (addToCart)="addToCart(product)"
+                 />
+             }
+         </div>
+
+     </div>
+</div>

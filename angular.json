@@ -52,7 +52,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -124,5 +127,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "3e5bf7c2-c1c5-4bd1-84a7-34e3dee64ce8"
   }
 }
