@@ -5,12 +5,14 @@
 
  import { routes } from './app.routes'
  import { provideClientHydration } from '@angular/platform-browser';
+import { provideStore } from '@ngrx/store';
 
  export const appConfig: ApplicationConfig = {
      providers: [
-         provideRouter(routes, withComponentInputBinding(), withPreloading(PreloadAllModules)),
-         provideClientHydration(),
-         provideHttpClient(withFetch()),
-         provideAnimations()
-     ]
+    provideRouter(routes, withComponentInputBinding(), withPreloading(PreloadAllModules)),
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
+    provideAnimations(),
+    provideStore()
+]
  }

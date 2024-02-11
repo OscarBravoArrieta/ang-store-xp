@@ -3,6 +3,10 @@
  import { RouterOutlet } from '@angular/router'
  import { FormsModule, ReactiveFormsModule  } from '@angular/forms'
 
+ import { StoreModule } from '@ngrx/store'
+ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+ 
+
  @Component({
      selector: 'app-root',
      standalone: true,
