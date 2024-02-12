@@ -1,9 +1,9 @@
  import { createReducer, on } from "@ngrx/store"
- import { User } from "../../models/user.model"
+ import { UserToLog } from "../../models/user.model"
  import { setUser, unSetUser } from "./auth.actions"
 
  export interface State {
-     user: User
+     user: UserToLog
  }
 
  export const initialState: State = {
@@ -11,7 +11,7 @@
  }
 
  const _authReducer = createReducer(initialState,
-     on (setUser, (state, {user}) => ({...state, user: {...user}})),
+     on (setUser, (state, {user}) => ({...state, string: {...user}})),
      on (unSetUser, state => ({...state, user: null!})),
 
  )

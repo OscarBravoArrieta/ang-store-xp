@@ -1,10 +1,10 @@
  import { createAction, props } from '@ngrx/store'
- import { User } from '../../models/user.model'
+ import { UserToLog } from '../../models/user.model'
 
  export const setUser = createAction (
      '[Auth] stUser',
-     props <{user: User}>())
- 
+     props <{user: UserToLog}>())
+
  // -----------------------------------------------------------------------------------------------
 
  export const unSetUser = createAction(
@@ -12,10 +12,9 @@
  )
 
  // -----------------------------------------------------------------------------------------------
-     
-
-     
- 
 
 
- 
+
+
+
+

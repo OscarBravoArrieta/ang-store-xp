@@ -10,6 +10,14 @@
  import { Router } from '@angular/router'
  import { RegisterComponent } from '../register/register.component'
 
+ import { Store } from '@ngrx/store'
+ import { AppState } from '../../../app.reducers'
+ import * as authActions  from '../../auth.actions'
+import { Subscription } from 'rxjs'
+
+
+
+
 
  @Component({
      selector: 'app-login',
@@ -27,6 +35,7 @@
      private formBuilder = inject (FormBuilder)
      private userService = inject(UsersService)
      private localStorageService = inject(LocalStorageService)
+     private store = inject(Store<AppState>)
      private router = inject(Router)
      private messageService = inject (MessageService)
      private ref = inject (DynamicDialogRef)
@@ -36,6 +45,9 @@
      token = signal('')
 
      refRegister: DynamicDialogRef | undefined
+
+
+     test!: Subscription
 
      //--------------------------------------------------------------------------------------------
      constructor() {
@@ -73,13 +85,25 @@
              this.userService.logIn(user).subscribe({
                  next: (token: string) => {
 
+                     this.token.set(token)
                      this.localStorageService.setItem('token', JSON.stringify(token))
                      this.localStorageService.setItem('currentUser', JSON.stringify(this.form.value.email))
+                     this.store.dispatch(authActions.setUser({user}))
 
-                     this.token.set(token)
+
+
+                     this.test = this.store.select('auth').subscribe((items) => {
+                        //this.ingresosEgresos = items
+                        console.log('Current User...')
+                        console.log(items)
+                    })
+
+
+
+
                      this.ref.close(this.formBuilder)
-
                      this.router.navigate(['dashboard/products-store'])
+
                  }, error: (error: any) => {
                      console.log(error)
                      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.statusText

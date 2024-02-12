@@ -3,6 +3,9 @@
  import { User, Email, UserToLog, EmailIsAvailable } from '../../models/user.model'
  import { LocalStorageService } from './local-storage.service'
 
+
+
+
  @Injectable({
      providedIn: 'root'
  })
@@ -11,9 +14,6 @@
      private http = inject(HttpClient)
      private localStorageService = inject(LocalStorageService)
 
-     constructor() {
-
-     }
 
      //--------------------------------------------------------------------------------------------
 
@@ -42,6 +42,7 @@
      logIn(user: UserToLog): any {
 
          return this.http.post<UserToLog>(`https://api.escuelajs.co/api/v1/auth/login/`, user)
+
      }
 
      //--------------------------------------------------------------------------------------------
@@ -53,7 +54,9 @@
 
      //--------------------------------------------------------------------------------------------
      checkEmail (objectEmail: Email) {
+
          return this.http.post<EmailIsAvailable>(`https://api.escuelajs.co/api/v1/users/is-available`, objectEmail)
+
      }
      //--------------------------------------------------------------------------------------------
      logout() {
