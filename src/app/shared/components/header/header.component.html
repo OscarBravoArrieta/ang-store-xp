@@ -17,7 +17,7 @@
          </div>
          <div class = "flex align-items-center justify-content-center">
              <a style="cursor: pointer">
-                 <p-button class="mr-4" icon="pi pi-shopping-cart" [rounded]="true" severity="danger">{{ total.length }}</p-button>
+                 <p-button class="mr-4" icon="pi pi-shopping-cart" [rounded]="true" severity="danger">{{ total() }}</p-button>
              </a>
 
              @if(userService.userLogged()){

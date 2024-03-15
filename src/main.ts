@@ -6,14 +6,18 @@
  import { authReducer } from './app/auth/auth.reducers'
 
  import { StoreModule } from '@ngrx/store'
- import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+ import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools'
  import { appReducers } from './app/app.reducers'
 
  bootstrapApplication(AppComponent, appConfig)
      .catch((err) => console.error(err))
      providers: [
-        provideStore(),
-        provideState({ name: 'auth', reducer: authReducer })
+         provideStore(),
+         provideStoreDevtools({
+             maxAge: 25,
+             logOnly: true,
+             connectInZone: true
+         }),
 
      ]
 

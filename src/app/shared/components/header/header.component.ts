@@ -36,7 +36,7 @@
      products = signal<Product[]>([])
 
      cart = this.cartService.cart
-     total = this.cartService.total
+     //total = this.cartService.total
      sidebarVisible = false
      outlined: boolean = true;
      productsInCart: any
@@ -46,10 +46,10 @@
      constructor() {}
 
      //--------------------------------------------------------------------------------------------
-    //  total = computed(() => {
-    //     const cart = this.cart()
-    //     return cart.reduce((total, product) => total + product.price, 0)
-    //  })
+     total = computed(() => {
+        const cart = this.cart()
+        return cart.reduce((total, product) => total + product.price, 0)
+     })
 
      ngOnChanges(changes: SimpleChanges) {
 
