@@ -1,2 +1,5 @@
 0. Documentación de angular
 https://angular.dev/tutorials
+
+Notifications from LocalStorage with Signals
+https://nhannguyendevjs.medium.com/notifications-from-localstorage-with-signals-88b6d2c51e2c

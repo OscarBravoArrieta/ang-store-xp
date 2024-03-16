@@ -34,7 +34,7 @@
 
          effect (() => {
              const products = this.cart()
-             this.localStorageService.setItem('products', JSON.stringify(products))
+             this.localStorageService.setItem('products', products)
          }, { injector: this.injector })
 
      }

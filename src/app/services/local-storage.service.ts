@@ -10,7 +10,7 @@
 
      //--------------------------------------------------------------------------------------------
 
-     setItem(key: string, value: string): void { // Set a value in local storage
+     setItem(key: string, value: any): void { // Set a value in local storage
          localStorage.setItem(key, JSON.stringify(value))
      }
 
