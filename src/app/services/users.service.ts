@@ -3,8 +3,7 @@
  import { User, Email, UserToLog, EmailIsAvailable } from '../../models/user.model'
  import { LocalStorageService } from './local-storage.service'
 
-
-
+ 
 
  @Injectable({
      providedIn: 'root'
