@@ -12,6 +12,8 @@
  import { CartService } from '../../../services/cart.service'
  import { Product } from '../../../../models/product.model'
 
+ import { AuthStore } from '../../../auth/auth.store'
+
  @Component({
      selector: 'app-header',
      standalone: true,
@@ -21,7 +23,7 @@
          CommonModule],
      templateUrl: './header.component.html',
      styleUrl: './header.component.scss',
-     providers: [DialogService]
+     providers: [DialogService, AuthStore]
  })
  export class HeaderComponent {
 
@@ -30,6 +32,7 @@
      private dialogService = inject(DialogService)
      localStorageService = inject(LocalStorageService)
      private cartService = inject(CartService)
+     private store = inject(AuthStore);
      injector = inject(Injector)
      ref: DynamicDialogRef | undefined
      items: MenuItem[] = [];
@@ -53,7 +56,7 @@
 
      ngOnChanges(changes: SimpleChanges) {
 
-         console.log(changes)
+         console.log('Changes...',changes)
          //this.setLocalStorage()
 
      }
@@ -62,7 +65,10 @@
 
      ngOnInit() {
 
-         const currentUser =  this.localStorageService.getItem('currentUser') || ''
+        //  const currentUser =  this.localStorageService.getItem('currentUser') || ''
+         const currentUser =  this.store.user() || ''
+
+         console.log('currentUser...', currentUser)
 
          this.items = [
              {label: currentUser, disabled: true },
@@ -72,12 +78,6 @@
                  }
              }
          ]
-
-         console.log('TOTAL: ', this.total)
-
-
-
-        //  this.setLocalStorage()
 
 
      }

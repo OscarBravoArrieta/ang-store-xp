@@ -5,35 +5,30 @@
 
  type userState = {
 
-     users: User[]
+     user: string
 
  }
 
+ // SignalState: https://ngrx.io/guide/signals/signal-state
 
- 
  // -----------------------------------------------------------------------------------------------
 
  const initialState: userState = {
-     
-     users: []
+
+     user: ''
 
  }
- 
+
  // -----------------------------------------------------------------------------------------------
 
- export const UserStore = signalStore(
+ export const AuthStore = signalStore(
      {providedIn: 'root'},
      withState(initialState),
      withMethods(
          (store, usersService = inject(UsersService))=> ({
-             getUsers() {
-                
-                 usersService.getUsers().subscribe((data: User[]) =>({
-                      constusers: [] = data
-                    //   patchState(store, {users})
+             setUser(user: string) {
 
-                 }))
-                 
+                 patchState(store, {user})
 
              }
          })

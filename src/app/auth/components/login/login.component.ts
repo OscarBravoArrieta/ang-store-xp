@@ -10,13 +10,9 @@
  import { Router } from '@angular/router'
  import { RegisterComponent } from '../register/register.component'
 
- import { Store } from '@ngrx/store'
- import { AppState } from '../../../app.reducers'
+ import { AuthStore } from '../../auth.store'
  import * as authActions  from '../../auth.actions'
-import { Subscription } from 'rxjs'
-
-
-
+ import { Subscription } from 'rxjs'
 
 
  @Component({
@@ -25,7 +21,7 @@ import { Subscription } from 'rxjs'
      imports: [FormsModule, ReactiveFormsModule, PrimengModule, RouterLinkWithHref ],
      templateUrl: './login.component.html',
      styleUrl: './login.component.scss',
-     providers: [MessageService, DialogService ]
+     providers: [MessageService, DialogService, AuthStore  ]
  })
 
 
@@ -35,7 +31,7 @@ import { Subscription } from 'rxjs'
      private formBuilder = inject (FormBuilder)
      private userService = inject(UsersService)
      private localStorageService = inject(LocalStorageService)
-     private store = inject(Store<AppState>)
+     private store = inject(AuthStore);
      private router = inject(Router)
      private messageService = inject (MessageService)
      private ref = inject (DynamicDialogRef)
@@ -88,18 +84,10 @@ import { Subscription } from 'rxjs'
                      this.token.set(token)
                      this.localStorageService.setItem('token', JSON.stringify(token))
                      this.localStorageService.setItem('currentUser', JSON.stringify(this.form.value.email))
-                     this.store.dispatch(authActions.setUser({user}))
 
+                     this.store.setUser(this.form.value.email)
 
-
-                     this.test = this.store.select('auth').subscribe((items) => {
-                        //this.ingresosEgresos = items
-                        console.log('Current User...')
-                        console.log(items)
-                    })
-
-
-
+                     console.log('Store:', this.store.user())
 
                      this.ref.close(this.formBuilder)
                      this.router.navigate(['dashboard/products-store'])
