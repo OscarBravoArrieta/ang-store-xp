@@ -10,7 +10,7 @@
  import { Router } from '@angular/router'
  import { RegisterComponent } from '../register/register.component'
 
- import { AuthStore } from '../../auth.store'
+ import { AuthStore } from '../../../signalState/auth.store'
  import { Subscription } from 'rxjs'
 
 

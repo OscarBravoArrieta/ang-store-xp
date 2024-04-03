@@ -11,8 +11,7 @@
  import { UsersService } from '../../../services/users.service'
  import { CartService } from '../../../services/cart.service'
  import { Product } from '../../../../models/product.model'
-
- import { AuthStore } from '../../../auth/auth.store'
+ import { AuthStore } from '../../../signalState/auth.store'
 
  @Component({
      selector: 'app-header',
