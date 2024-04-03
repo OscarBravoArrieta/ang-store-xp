@@ -1,17 +1,16 @@
- import { Component, inject, signal } from '@angular/core'
+ import { Component, inject, signal, effect, Injector } from '@angular/core'
  import { Validators, FormGroup, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms'
  import { PrimengModule } from '../../../primeng/primeng.module'
  import { MessageService } from 'primeng/api'
  import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
  import { UsersService } from '../../../services/users.service'
- import { UserToLog } from '../../../../models/user.model'
+ import { UserToLog, Token  } from '../../../../models/user.model'
  import { LocalStorageService } from '../../../services/local-storage.service'
  import { RouterLinkWithHref } from '@angular/router'
  import { Router } from '@angular/router'
  import { RegisterComponent } from '../register/register.component'
 
  import { AuthStore } from '../../auth.store'
- import * as authActions  from '../../auth.actions'
  import { Subscription } from 'rxjs'
 
 
@@ -33,12 +32,14 @@
      private localStorageService = inject(LocalStorageService)
      private store = inject(AuthStore);
      private router = inject(Router)
+
      private messageService = inject (MessageService)
      private ref = inject (DynamicDialogRef)
 
      form!: FormGroup
      statusForm = signal(false)
-     token = signal('')
+     token!: Token
+     injector = inject(Injector)
 
      refRegister: DynamicDialogRef | undefined
 
@@ -79,23 +80,19 @@
                  password: this.form.value.password //'changeme'
              }
              this.userService.logIn(user).subscribe({
-                 next: (token: string) => {
+                 next: (token: Token) => {
 
-                     this.token.set(token)
-                     this.localStorageService.setItem('token', JSON.stringify(token))
-                     this.localStorageService.setItem('currentUser', JSON.stringify(this.form.value.email))
+                     this.token = token
 
                      this.store.setUser(this.form.value.email)
-
-                     console.log('Store:', this.store.user())
+                     this.trackUser()
 
                      this.ref.close(this.formBuilder)
                      this.router.navigate(['dashboard/products-store'])
 
                  }, error: (error: any) => {
                      console.log(error)
-                     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.statusText
-                    })
+                     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.statusText})
                  }
              })
          }
@@ -125,6 +122,14 @@
          }
      }
      // -------------------------------------------------------------------------------------------
+     trackUser() {
+         effect (() => {
+             const currentUser = this.store.user()
+             this.localStorageService.setItem('currentUser', currentUser)
+             this.localStorageService.setItem('access_token', this.token.access_token)
+             this.localStorageService.setItem('refresh_token', this.token.refresh_token)
+         }, { injector: this.injector })
+     }
 
  }
 

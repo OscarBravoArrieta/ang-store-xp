@@ -3,7 +3,7 @@
  import { User, Email, UserToLog, EmailIsAvailable } from '../../models/user.model'
  import { LocalStorageService } from './local-storage.service'
 
- 
+
 
  @Injectable({
      providedIn: 'root'
@@ -48,7 +48,7 @@
 
      userLogged() {
 
-         return this.localStorageService.getItem('token') !== null
+         return this.localStorageService.getItem('access_token') !== null
      }
 
      //--------------------------------------------------------------------------------------------
@@ -60,7 +60,8 @@
      //--------------------------------------------------------------------------------------------
      logout() {
 
-         this.localStorageService.removeItem('token')
+         this.localStorageService.removeItem('access_token')
+         this.localStorageService.removeItem('refresh_token')
          this.localStorageService.removeItem('currentUser')
 
      }

@@ -1,15 +1,12 @@
  import { computed, inject } from "@angular/core"
  import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals"
- import { User, UserToLog } from "../../models/user.model"
  import { UsersService } from "../services/users.service"
 
  type userState = {
 
      user: string
 
- }
-
- // SignalState: https://ngrx.io/guide/signals/signal-state
+ } // SignalState: https://ngrx.io/guide/signals/signal-state
 
  // -----------------------------------------------------------------------------------------------
 

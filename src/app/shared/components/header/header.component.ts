@@ -55,9 +55,7 @@
      })
 
      ngOnChanges(changes: SimpleChanges) {
-
-         console.log('Changes...',changes)
-         //this.setLocalStorage()
+        console.log('Changes...',changes)
 
      }
 
@@ -65,10 +63,7 @@
 
      ngOnInit() {
 
-        //  const currentUser =  this.localStorageService.getItem('currentUser') || ''
-         const currentUser =  this.store.user() || ''
-
-         console.log('currentUser...', currentUser)
+         const currentUser =  this.localStorageService.getItem('currentUser') || ''
 
          this.items = [
              {label: currentUser, disabled: true },
