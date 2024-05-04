@@ -64,6 +64,10 @@
 
          const currentUser =  this.localStorageService.getItem('currentUser') || ''
 
+         const productsInCart = this.localStorageService.getItem('products') || 0
+
+         console.log('PRODUCTOS....',productsInCart)
+
          this.items = [
              {label: currentUser, disabled: true },
              {label: 'Logout', icon: 'pi pi-sign-out', command: (event) => {

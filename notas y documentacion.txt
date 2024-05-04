@@ -3,3 +3,33 @@ https://angular.dev/tutorials
 
 Notifications from LocalStorage with Signals
 https://nhannguyendevjs.medium.com/notifications-from-localstorage-with-signals-88b6d2c51e2c
+
+
+
+Synchronize Angular Signal or Computed Value With LocalStorage Using Effect
+https://egghead.io/lessons/angular-synchronize-angular-signal-or-computed-value-with-localstorage-using-effect
+
+
+Angular Signals : A Comprehensive Introduction
+https://dev.to/nikhil6076/angular-signals-a-comprehensive-introduction-45h2
+
+
+Notifications from LocalStorage with Signals
+https://nhannguyendevjs.medium.com/notifications-from-localstorage-with-signals-88b6d2c51e2c
+
+
+Angular Signal Effect
+https://blog.stackademic.com/angular-signal-effect-41d39e2506f8
+
+
+
+Unveiling Global State Management in Angular using Signals with LocalStorage
+https://devlinduldulao.pro/unveiling-global-state-management-in-angular-with-signals-with-localstorage/
+
+
+Manejo de Estados con RxJS y persistencia en Local Storage en Angular (State Manager)
+https://www.youtube.com/watch?v=h0kGsgwy4tA
+
+
+Simplificación de la gestión de estados en Angular con señales y LocalStorage
+https://www.nileshpande.com/simplifying-state-management-in-angular-with-signals-and-localstorage/

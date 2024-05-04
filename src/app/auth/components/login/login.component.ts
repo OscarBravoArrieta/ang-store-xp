@@ -86,7 +86,6 @@
 
                      this.store.setUser(this.form.value.email)
                      this.trackUser()
-
                      this.ref.close(this.formBuilder)
                      this.router.navigate(['dashboard/products-store'])
 
