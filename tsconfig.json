@@ -21,7 +21,13 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+        "@models/*": ["./src/models/*"],
+        "@environments/*": ["./src/environments/*"],
+        "@services/*": ["./src/app/services/*"],
+        "@pimeng/*" : ["./src/app/primeng/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

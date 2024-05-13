@@ -1,10 +1,11 @@
  import { Component, inject, signal, effect, Injector } from '@angular/core'
  import { Validators, FormGroup, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms'
- import { PrimengModule } from '../../../primeng/primeng.module'
+ import { PrimengModule } from '@pimeng/primeng.module'
  import { MessageService } from 'primeng/api'
  import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
- import { UsersService } from '../../../services/users.service'
- import { UserToLog, Token  } from '../../../../models/user.model'
+ import { AuthService } from '@services/auth.service'
+ import { UserToLog, Token  } from '@models/user.model'
+ import { RequestStatus } from '@models/request-status.model'
  import { LocalStorageService } from '../../../services/local-storage.service'
  import { RouterLinkWithHref } from '@angular/router'
  import { Router } from '@angular/router'
@@ -28,7 +29,7 @@
 
      private dialogService = inject(DialogService)
      private formBuilder = inject (FormBuilder)
-     private userService = inject(UsersService)
+     private authService = inject(AuthService)
      private localStorageService = inject(LocalStorageService)
      private store = inject(AuthStore);
      private router = inject(Router)
@@ -42,6 +43,7 @@
      injector = inject(Injector)
 
      refRegister: DynamicDialogRef | undefined
+     status: RequestStatus = 'init'
 
 
      test!: Subscription
@@ -75,22 +77,20 @@
          this.statusForm.set(this.form.invalid)
 
          if (this.form.valid) {
+             this.status = 'loading'
              const user: UserToLog = {
                  email: this.form.value.email,  //'john@mail.com',
                  password: this.form.value.password //'changeme'
              }
-             this.userService.logIn(user).subscribe({
-                 next: (token: Token) => {
-
+             this.authService.logIn(user).subscribe({
+                 next: (token) => {
                      this.token = token
-
                      this.store.setUser(this.form.value.email)
                      this.trackUser()
                      this.ref.close(this.formBuilder)
                      this.router.navigate(['dashboard/products-store'])
-
                  }, error: (error: any) => {
-                     console.log(error)
+                     this.status = 'failed'
                      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.statusText})
                  }
              })

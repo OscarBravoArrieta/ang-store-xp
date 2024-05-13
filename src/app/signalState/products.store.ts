@@ -33,7 +33,7 @@
              getProducts(){
                  patchState(store, {state: 'Cargando'})
                  const products = productsService.getProducts()
-                 patchState(store, {products})
+                 //patchState(store, {products})
 
              },
 
