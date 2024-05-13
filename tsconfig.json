@@ -26,7 +26,8 @@
         "@models/*": ["./src/models/*"],
         "@environments/*": ["./src/environments/*"],
         "@services/*": ["./src/app/services/*"],
-        "@pimeng/*" : ["./src/app/primeng/*"]
+        "@pimeng/*" : ["./src/app/primeng/*"],
+        "@utils/*": ["./src/app/utils/*"],
     }
   },
   "angularCompilerOptions": {

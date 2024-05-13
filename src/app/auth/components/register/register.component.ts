@@ -1,13 +1,16 @@
  import { Component, inject, signal } from '@angular/core'
  import { Validators, FormGroup, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms'
  import { PrimengModule } from '../../../primeng/primeng.module'
- import { UsersService } from '../../../services/users.service'
- import { User, Email, EmailIsAvailable, UserToLog } from '../../../../models/user.model'
+ import { AuthService } from '@services/auth.service'
+ import { User, Email, EmailIsAvailable, UserToLog, Token} from '@models/user.model'
+ import { RequestStatus } from '@models/request-status.model'
  import { MessageService } from 'primeng/api'
+ import { CustomValidators } from '@utils/custom-validations'
  import { LocalStorageService } from '../../../services/local-storage.service'
  import { RouterLinkWithHref } from '@angular/router'
  import { Router } from '@angular/router'
  import { DynamicDialogRef } from 'primeng/dynamicdialog'
+
 
  interface Rol {
      name: string
@@ -24,10 +27,11 @@
  })
  export class RegisterComponent {
      private formBuilder = inject (FormBuilder)
-     private userService = inject(UsersService)
+     private authService = inject(AuthService)
      private localStorageService = inject(LocalStorageService)
      private router = inject(Router)
      private messageService = inject (MessageService)
+     status: RequestStatus = 'init'
      form!: FormGroup
      roles: Rol[] | undefined
      selectedRol: Rol | undefined
@@ -55,28 +59,22 @@
      private buildForm() {
 
          this.form = this.formBuilder.group ({
-             email: [
-                 null,
-                 Validators.compose(
+             email: [null, Validators.compose(
                      [
                          Validators.email,
                          Validators.required
                      ]
                  )
              ],
-             name: [
-                 null,
-                 Validators.compose(
+             name: [null, Validators.compose(
                      [
                          Validators.required,
                          Validators.minLength(8)
                      ]
                  )
              ],
-             password: [
-                 null,
-                 Validators.compose(
-                     [
+             password: [ null,
+                 Validators.compose( [
                          Validators.minLength(8),
                          Validators.required,
                          //Validators.pattern('(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}'),
@@ -84,14 +82,10 @@
                      ]
                  )
              ],
-             passwordConfirm: [
-                 null,
-                 Validators.compose(
+             passwordConfirm: [ null, Validators.compose(
                      [
                          Validators.minLength(8),
                          Validators.required,
-
-
                      ]
                  )
              ],
@@ -111,26 +105,12 @@
                  )
              ],
          }, {
-             validator: this.checkPasswords
+            validators: [ CustomValidators.MatchValidator('password', 'confirmPassword') ]
          })
      }
 
      // -------------------------------------------------------------------------------------------
 
-     checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-
-         let pass = group.controls.password.value;
-         let confirmPass = group.controls.passwordConfirm.value;
-         if (pass === confirmPass) {
-             return null
-         }else {
-             group.controls.passwordConfirm.setErrors({ NoPassswordMatch: true });
-             return { notSame: true }
-         }
-
-     }
-
-     //--------------------------------------------------------------------------------------------
      get emailField() {
          return this.form.get('email')
      }
@@ -151,6 +131,7 @@
      register() {
 
          this.statusForm.set(this.form.invalid)
+         this.status = 'loading'
          if (!this.form.valid) { return }
 
          const userToCreate: User = {
@@ -161,19 +142,20 @@
              avatar: this.form.value.avatar
          }
 
-         this.userService.createUser(userToCreate).subscribe({
+         this.authService.createUser(userToCreate).subscribe({
              next: (newUser: User) => {
-                 console.log(newUser)
                  const newUserLog: UserToLog = {
                      email: newUser.email,
                      password: newUser.password
                  }
+                 this.status = 'success';
                  this.login(newUserLog);
                  this.ref.close(this.formBuilder)
                  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cuenta creada!' })
 
                  //this.router.navigate(['dashboard/products-store'])
              }, error: (error: any) => {
+                this.status = 'failed'
                  console.log('error-> ', error.error.message)
                  this.messageService.add({ severity: 'error', summary: 'Error', detail: error.statusText })
             }
@@ -187,7 +169,7 @@
          const objectEmail: Email = {
              email
          }
-         this.userService.checkEmail(objectEmail).subscribe({
+         this.authService.checkEmail(objectEmail).subscribe({
              next: (emailIsAvailable: EmailIsAvailable) => {
                  this.emailIsAvailable.set(emailIsAvailable.isAvailable)
 
@@ -200,8 +182,8 @@
      // -------------------------------------------------------------------------------------------
 
      login(newUserLog: UserToLog) {
-        this.userService.logIn(newUserLog).subscribe({
-             next: (token: string) => {
+        this.authService.logIn(newUserLog).subscribe({
+             next: (token: Token) => {
                  this.localStorageService.setItem('token', JSON.stringify(token))
                  this.localStorageService.setItem('currentUser', JSON.stringify(this.form.value.email))
                  this.router.navigate(['dashboard/products-store'])

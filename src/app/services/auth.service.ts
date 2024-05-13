@@ -26,4 +26,18 @@
 
      //--------------------------------------------------------------------------------------------
 
+      createUser(user: User) {
+
+         return this.http.post<User>(`${this.apiUrl}/users/`, user)
+
+      }
+
+     //--------------------------------------------------------------------------------------------
+     checkEmail (objectEmail: Email) {
+
+         return this.http.post<EmailIsAvailable>(`${this.apiUrl}/users/is-available`, objectEmail)
+
+    }
+    //--------------------------------------------------------------------------------------------
+
  }

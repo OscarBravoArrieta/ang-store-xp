@@ -29,35 +29,35 @@
 
      }
 
-     //--------------------------------------------------------------------------------------------
+    //  //--------------------------------------------------------------------------------------------
 
-     createUser(user: User) {
+    //  createUser(user: User) {
 
-         return this.http.post<User>(`https://api.escuelajs.co/api/v1/users`, user)
+    //      return this.http.post<User>(`https://api.escuelajs.co/api/v1/users`, user)
 
-     }
-     //--------------------------------------------------------------------------------------------
+    //  }
+    //  //--------------------------------------------------------------------------------------------
 
-     logIn(user: UserToLog): any {
+    //  logIn(user: UserToLog): any {
 
-         return this.http.post<UserToLog>(`https://api.escuelajs.co/api/v1/auth/login/`, user)
+    //      return this.http.post<UserToLog>(`https://api.escuelajs.co/api/v1/auth/login/`, user)
 
-     }
+    //  }
 
-     //--------------------------------------------------------------------------------------------
+    //  //--------------------------------------------------------------------------------------------
 
      userLogged() {
 
          return this.localStorageService.getItem('access_token') !== null
      }
 
-     //--------------------------------------------------------------------------------------------
-     checkEmail (objectEmail: Email) {
+    //  //--------------------------------------------------------------------------------------------
+    //  checkEmail (objectEmail: Email) {
 
-         return this.http.post<EmailIsAvailable>(`https://api.escuelajs.co/api/v1/users/is-available`, objectEmail)
+    //      return this.http.post<EmailIsAvailable>(`https://api.escuelajs.co/api/v1/users/is-available`, objectEmail)
 
-     }
-     //--------------------------------------------------------------------------------------------
+    //  }
+    //  //--------------------------------------------------------------------------------------------
      logout() {
 
          this.localStorageService.removeItem('access_token')
