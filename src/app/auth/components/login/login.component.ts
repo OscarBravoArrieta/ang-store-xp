@@ -1,6 +1,6 @@
  import { Component, inject, signal, effect, Injector } from '@angular/core'
  import { Validators, FormGroup, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms'
- import { PrimengModule } from '@pimeng/primeng.module'
+ import { PrimengModule } from '@primeng/primeng.module'
  import { MessageService } from 'primeng/api'
  import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
  import { AuthService } from '@services/auth.service'

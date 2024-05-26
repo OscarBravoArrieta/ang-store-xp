@@ -1,14 +1,15 @@
  import { Component, inject, signal, Input, SimpleChanges } from '@angular/core'
  import { CommonModule } from '@angular/common'
- import { PrimengModule } from '../../../primeng/primeng.module'
- import { CategoriesService } from '../../../services/categories.service'
- import { ProductsService } from '../../../services/products.service'
+ import { PrimengModule } from '@primeng/primeng.module'
+ import { CategoriesService } from '@services/categories.service'
+ import { ProductsService } from '@services/products.service'
  import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
  import { RouterLinkWithHref } from '@angular/router'
- import { Category } from '../../../../models/category.model'
- import { Product } from '../../../../models/product.model'
+ import { Category } from '@models/category.model'
+ import { Product } from '@models/product.model'
  import { ProductDetailsComponent } from '../product-details/product-details.component'
  import { ChosenProductComponent } from '../chosen-product/chosen-product.component'
+ //import { ProductStore } from '../../../signalState/products.store'
 
  @Component({
      selector: 'app-product-store',
@@ -32,6 +33,7 @@
      private categoriesService = inject(CategoriesService)
      private dialogService = inject(DialogService)
      ref: DynamicDialogRef | undefined
+     //readonly store = inject(ProductStore);
 
 
      @Input() category_id?: string
@@ -41,6 +43,9 @@
      ngOnInit() {
 
          this.getCategories()
+        //  const p: any = this.store.getProducts
+        //  this.products.set(p)
+
 
      }
 
@@ -68,7 +73,7 @@
      //--------------------------------------------------------------------------------------------
      addToCart(product: Product) {
 
-         console.log('This method was emmited...', product)
+         //console.log('This method was emmited...', product)
      }
 
 

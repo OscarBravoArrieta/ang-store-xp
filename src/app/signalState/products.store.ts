@@ -6,16 +6,16 @@
  import { pipe, switchMap, tap } from "rxjs"
 
 
- interface ProductsState {
+ type ProductsState = {
 
      products: Product[]
-     state: 'Cargando' | 'Cargado' | 'Error'
+     //isLoading: boolean;
 
  }
  const initialState: ProductsState = {
 
      products: [],
-     state: 'Cargando'
+     //isLoading: true
 
  }
 
@@ -31,10 +31,10 @@
          (store, productsService = inject(ProductsService)) => ({
 
              getProducts(){
-                 patchState(store, {state: 'Cargando'})
+                 //patchState(store, {isLoading: true})
                  const products = productsService.getProducts()
-                 //patchState(store, {products})
-
+                 patchState(store, {products})
+                 
              },
 
              getOne() {
@@ -49,3 +49,7 @@
 
 
  )
+//https://ngrx.io/guide/signals/signal-store
+
+// Reactive Store Methods
+// In more complex scenarios, opting for RxJS to handle asynchronous side effects is advisable. To create a reactive SignalStore method that harnesses RxJS APIs, use the rxMethod function from the rxjs-interop plugin.

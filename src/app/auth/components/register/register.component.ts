@@ -1,12 +1,12 @@
  import { Component, inject, signal } from '@angular/core'
  import { Validators, FormGroup, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms'
- import { PrimengModule } from '../../../primeng/primeng.module'
+ import { PrimengModule } from '@primeng/primeng.module'
  import { AuthService } from '@services/auth.service'
  import { User, Email, EmailIsAvailable, UserToLog, Token} from '@models/user.model'
  import { RequestStatus } from '@models/request-status.model'
  import { MessageService } from 'primeng/api'
  import { CustomValidators } from '@utils/custom-validations'
- import { LocalStorageService } from '../../../services/local-storage.service'
+ import { LocalStorageService } from '@services/local-storage.service'
  import { RouterLinkWithHref } from '@angular/router'
  import { Router } from '@angular/router'
  import { DynamicDialogRef } from 'primeng/dynamicdialog'
@@ -105,7 +105,7 @@
                  )
              ],
          }, {
-            validators: [ CustomValidators.MatchValidator('password', 'confirmPassword') ]
+             validators: [ CustomValidators.MatchValidator('password', 'confirmPassword') ]
          })
      }
 
